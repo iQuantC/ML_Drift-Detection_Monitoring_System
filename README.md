@@ -108,12 +108,12 @@ sudo snap install slack --classic
 3. Click "Add to Slack".
 4. Scroll down to "Post to Channel" and select the channel where you want to post alerts (or Create a New Channel).
 5. Click "Add Incoming Webhooks Integration".
-6. Copy & Save the Webhook URL, e.g.: https://hooks.slack.com/services/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j
+6. Copy & Save the Webhook URL, e.g.: https://hooks.slack.com/services/T09NYD7D30R/B09NHJYA5GE/u2he99h3f79h23hy9rK
 
 
 ### Configure Grafana to Use the Slack Webhook
-1. Add SLACK_WEBHOOK_URL=https://hooks.slack.com/services/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j to the .env file.
-2. Add slack_api_url: 'https://hooks.slack.com/services/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j' to the alertmanager.yml.
+1. Add SLACK_WEBHOOK_URL=https://hooks.slack.com/services/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uZj to the .env file.
+2. Add slack_api_url: 'https://hooks.slack.com/services/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Zj' to the alertmanager.yml.
 
 
 ## Generate Normal Traffic 
