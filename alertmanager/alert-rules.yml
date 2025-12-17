@@ -1,0 +1,47 @@
+groups:
+  - name: drift_alerts
+    interval: 30s
+    rules:
+      # Alert when data drift is detected
+      - alert: DataDriftDetected
+        expr: model_drift_score > 0.3
+        for: 1m
+        labels:
+          severity: warning
+          type: data_drift
+        annotations:
+          summary: "Data drift detected in ML model"
+          description: "Drift score {{ $value }} exceeds threshold of 0.3 for feature {{ $labels.feature }}"
+
+      # Alert when drift is critical
+      - alert: CriticalDataDrift
+        expr: model_drift_score > 0.5
+        for: 30s
+        labels:
+          severity: critical
+          type: data_drift
+        annotations:
+          summary: "CRITICAL: High data drift detected"
+          description: "Drift score {{ $value }} is critically high (>0.5) for feature {{ $labels.feature }}"
+
+      # Alert when prediction distribution changes significantly
+      - alert: PredictionDistributionShift
+        expr: rate(model_predictions_total[5m]) < 0.5
+        for: 2m
+        labels:
+          severity: warning
+          type: prediction_shift
+        annotations:
+          summary: "Prediction distribution has shifted"
+          description: "Prediction rate has dropped significantly"
+
+      # Alert when model service is down
+      - alert: ModelServiceDown
+        expr: up{job="model-service"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          type: service_health
+        annotations:
+          summary: "Model service is down"
+          description: "The model service has been unreachable for more than 1 minute"
